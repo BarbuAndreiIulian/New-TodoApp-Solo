@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import TodoItem from "./TodoItem";
+import TodoSetUp from "./TodoSetUp";
 
-function App() {
+export default function App() {
+  const [listTodo, setlistTodo] = React.useState([]);
+  let elements;
+  const publishTodo = (x) => {
+    let todo = {
+      text: x,
+      completed: false,
+    };
+    let newTodo = [todo, ...listTodo];
+    setlistTodo(newTodo);
+    console.log(listTodo);
+  };
+
+  elements = listTodo.map((el) => {
+    return <TodoItem info={el} />;
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Todo App</h1>
+      <TodoSetUp post={publishTodo} />
+      {elements}
     </div>
   );
 }
-
-export default App;
